@@ -36,10 +36,10 @@ export async function setupPaver({ reducedMotion }) {
   node('desc',{id:'paver-map-desc'},svg).textContent='Actual streets, buildings and five capture positions at Quai Saint-Nicolas. Panorama A and panorama B each highlight their observed road patch, lift it out, align it and place it into the target. Matching colors connect each source to its recovered region. A third panorama only provides supporting matches; the unmatched capture has no evidence edge.';
   const defs=node('defs',{},svg);
   const world=node('g',{'aria-hidden':'true'},svg);
-  node('image',{href:asset('street-context.svg?v=orange1'),x:0,y:0,width:540,height:330},world);
+  node('image',{href:asset('street-context.svg'),x:0,y:0,width:540,height:330},world);
   const positions={prev2:{x:43,y:274,r:25},prev1:{x:84,y:94,r:64},next1:{x:456,y:94,r:64},next2:{x:497,y:274,r:25}};
   const target={x:142,y:314,size:256,cx:270,cy:442};
-  const colors=[{ink:'#873838',light:'#ffc6a0',letter:'A'},{ink:'#245e56',light:'#b9f0d6',letter:'B'}];
+  const colors=[{ink:'#9a3f2c',light:'#ffc6a0',letter:'A'},{ink:'#19594c',light:'#b9f0d6',letter:'B'}];
   const routeD=`M${data.captures.map(c=>`${c.mapX},${c.mapY}`).join(' L')}`;
   node('path',{d:routeD,class:'paver-capture-route'},world);
   const rings={},sourceOutlines={};
@@ -55,13 +55,13 @@ export async function setupPaver({ reducedMotion }) {
     const donorIndex=data.donors.findIndex(d=>d.id===c.id);
     const color=colors[donorIndex];
     node('path',{d:`M${c.mapX},${c.mapY} L${p.x},${p.y}`,class:'paver-photo-leader'},world);
-    node('circle',{cx:c.mapX,cy:c.mapY,r:4,fill:color?.ink||'#925421',stroke:'#ffe2bc','stroke-width':1},world);
+    node('circle',{cx:c.mapX,cy:c.mapY,r:4,fill:color?.ink||'#6d6747',stroke:'#f5e6ae','stroke-width':1},world);
     const clip=node('clipPath',{id:`paver-photo-${c.id}`},defs);
     node('circle',{cx:p.x,cy:p.y,r:p.r},clip);
     node('image',{href:asset(c.thumbnail),x:p.x-p.r,y:p.y-p.r,width:p.r*2,height:p.r*2,'clip-path':`url(#paver-photo-${c.id})`},world);
     const clipping=node('g',{'clip-path':`url(#paver-photo-${c.id})`},world);
-    sourceOutlines[c.id]=node('path',{d:c.sourceOutline||'',transform:`translate(${p.x-p.r} ${p.y-p.r}) scale(${p.r*2/(c.sourceSize||384)})`,fill:color?.light||'#ffe2bc',stroke:color?.light||'#ffe2bc','fill-opacity':.12,'stroke-width':2,'vector-effect':'non-scaling-stroke','fill-rule':'evenodd',opacity:donorIndex<0?0:1},clipping);
-    rings[c.id]=node('circle',{cx:p.x,cy:p.y,r:p.r+2,fill:'none',stroke:color?.ink||'#925421','stroke-width':donorIndex<0?1:2},world);
+    sourceOutlines[c.id]=node('path',{d:c.sourceOutline||'',transform:`translate(${p.x-p.r} ${p.y-p.r}) scale(${p.r*2/(c.sourceSize||384)})`,fill:color?.light||'#f7efcc',stroke:color?.light||'#f7efcc','fill-opacity':.12,'stroke-width':2,'vector-effect':'non-scaling-stroke','fill-rule':'evenodd',opacity:donorIndex<0?0:1},clipping);
+    rings[c.id]=node('circle',{cx:p.x,cy:p.y,r:p.r+2,fill:'none',stroke:color?.ink||'#827236','stroke-width':donorIndex<0?1:2},world);
     if(color) {
       node('rect',{x:p.x-13,y:p.y-p.r-21,width:26,height:26,fill:color.ink},world);
       text(world,color.letter,{x:p.x,y:p.y-p.r-1,'text-anchor':'middle',class:'paver-node-letter'});
@@ -81,7 +81,7 @@ export async function setupPaver({ reducedMotion }) {
   const layers=data.donors.map(d=>node('image',{href:asset(d.patch),x:target.x,y:target.y,width:target.size,height:target.size,opacity:0},base));
   const completed=node('image',{href:'assets/paver-strasbourg-after.webp',x:target.x,y:target.y,width:target.size,height:target.size,opacity:0},base);
   const targetOutlines=data.donors.map((d,i)=>node('path',{d:d.outline,transform:`translate(${target.x} ${target.y}) scale(.4)`,fill:'none',stroke:colors[i].light,'stroke-width':2,'vector-effect':'non-scaling-stroke',opacity:.3},base));
-  node('circle',{cx:target.cx,cy:target.cy,r:130,fill:'none',stroke:'#2b2017','stroke-width':1},world);
+  node('circle',{cx:target.cx,cy:target.cy,r:130,fill:'none',stroke:'#262a26','stroke-width':1},world);
   const tags=data.donors.map((d,i)=>{
     const g=node('g',{opacity:0},world);
     const x=target.x+d.targetCentroid[0]*.4, y=target.y+d.targetCentroid[1]*.4;
