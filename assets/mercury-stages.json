@@ -1,0 +1,90 @@
+{
+  "title": "Reconstructing Mercury",
+  "description": "Predicting high-resolution gravity from coarse observations, with lunar transfer learning and topography.",
+  "repository": "https://github.com/amilcodes/mercury-reconstruction",
+  "sourceCommit": "7c62bf13de44d0915e7762dbab201f29ab2d1feb",
+  "sourceArray": "results/neural-v2/mercury-transfer.npz",
+  "sourceShape": [
+    202,
+    404
+  ],
+  "displayShape": [
+    502,
+    1004
+  ],
+  "quantity": "Inward radial gravity perturbation",
+  "units": "mGal",
+  "range": [
+    -200.0,
+    200.0
+  ],
+  "colorMap": "RdBu_r",
+  "longitude": [
+    -180,
+    180
+  ],
+  "latitude": [
+    90,
+    -90
+  ],
+  "longitudeDirection": "west to east",
+  "orientation": "north at top; 0\u00b0 longitude at center",
+  "legend": "Gravity \u00b7 mGal",
+  "caption": "Degree 25 \u2192 50 \u2192 100. Southern detail is a model prediction.",
+  "meaning": "Successive stages of one saved reconstruction cascade; not training epochs.",
+  "displayMethod": "Spherical-harmonic synthesis on a denser DH2 grid at degree 100, matching the paper; fixed shared color scale with saturation beyond \u00b1200 mGal.",
+  "mapKind": "Four-fold deployment ensemble; not a held-out evaluation map.",
+  "palette": {
+    "blue": "#3077b5",
+    "ink": "#17202b",
+    "pale": "#edf4fa"
+  },
+  "authors": [
+    "Amil Agrawal",
+    "Brandon Montoya",
+    "Joanne Ding"
+  ],
+  "stages": [
+    {
+      "degree": 25,
+      "label": "Input \u00b7 degree 25",
+      "dataKey": "input_L25",
+      "image": "mercury-degree-25.webp",
+      "png": "mercury-degree-25.png",
+      "startSeconds": 0.0,
+      "durationSeconds": 1.5,
+      "rangeBeforeColorClipping": [
+        -189.3346710205078,
+        174.87472534179688
+      ]
+    },
+    {
+      "degree": 50,
+      "label": "Reconstructed \u00b7 degree 50",
+      "dataKey": "reconstructed_L50",
+      "image": "mercury-degree-50.webp",
+      "png": "mercury-degree-50.png",
+      "startSeconds": 1.5,
+      "durationSeconds": 1.5,
+      "rangeBeforeColorClipping": [
+        -263.3085876054439,
+        171.16460717538297
+      ]
+    },
+    {
+      "degree": 100,
+      "label": "Reconstructed \u00b7 degree 100",
+      "dataKey": "reconstructed_L100",
+      "image": "mercury-degree-100.webp",
+      "png": "mercury-degree-100.png",
+      "startSeconds": 3.0,
+      "durationSeconds": 1.5,
+      "rangeBeforeColorClipping": [
+        -282.92018005455566,
+        170.3008613963007
+      ]
+    }
+  ],
+  "colorScaleImage": "mercury-color-scale.png",
+  "sourceSha256": "cb2d854b491f0093d8fb8043188b21ea33c1e1fbb923dbf033b9e7b627a5282b"
+}
