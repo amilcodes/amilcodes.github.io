@@ -107,7 +107,7 @@ import { setupBenchmarks } from './benchmarks.js';
 setupBenchmarks({ reducedMotion });
 
 
-import { setupProjectVisuals } from './projects.js?v=paver-street1';
+import { setupProjectVisuals } from './projects.js?v=paver-orange1';
 setupProjectVisuals({ reducedMotion });
 
 import { setupRecordedInputs } from './rsg-inputs.js?v=overworld6';

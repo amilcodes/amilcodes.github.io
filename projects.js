@@ -1,4 +1,4 @@
-import { setupPaver } from './paver.js?v=street1';
+import { setupPaver } from './paver.js?v=orange1';
 
 export function setupProjectVisuals({ reducedMotion }) {
   setupPaver({ reducedMotion });

@@ -39,7 +39,7 @@
 
 /* Project evidence stays large and directly attached to its explanation. */
 .robot-field{border-top:1px dotted var(--line);margin-top:2.75rem;padding-top:2.0625rem}.field-heading{display:flex;align-items:baseline;justify-content:space-between;gap:1.375rem;margin-bottom:1.375rem}.field-heading h3{font-size:1.65rem}.field-heading p{font-size:1.03125rem}.field-pair{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.field-pair video{aspect-ratio:16/9;object-fit:contain}.field-pair figcaption{font-size:1.03125rem;margin-top:0.6875rem}.robot-field .media-footer{margin-top:1.03125rem}
-.paver{--paper:#d7b84a;--ink:#262a26;--accent:#f7efcc;--line:#827236;color-scheme:light}
+.paver{--paper:#ef8b34;--ink:#2b2017;--accent:#ffe2bc;--line:#925421;color-scheme:light}
 .paver-acronym{font-size:1.03125rem;line-height:1.55;margin-top:0.6875rem}
 .paver-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2.75rem}
 .paver-column-labels,.paver-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0.75rem}
@@ -66,15 +66,15 @@
 .back-top{white-space:nowrap}
 
 /* Actual street geometry and consistent colors connect each patch to its donor. */
-.paver-capture-route{fill:none;stroke:#524c31;stroke-width:2;stroke-linecap:round}
-.paver-photo-leader,.paver-target-leader{fill:none;stroke:#645d3d;stroke-width:1.2}
+.paver-capture-route{fill:none;stroke:#2b2017;stroke-width:2;stroke-linecap:round}
+.paver-photo-leader,.paver-target-leader{fill:none;stroke:#925421;stroke-width:1.2}
 .paver-target-leader{stroke-dasharray:2 4}
-.paver-route-target{fill:#262a26;stroke:#f4e5af;stroke-width:1.5}
-.paver-map-label{fill:#3e3d2e;font:16px Departure,monospace;paint-order:stroke;stroke:#dfc86d;stroke-width:3px;stroke-linejoin:round}
-.paver-node-letter,.paver-patch-letter{font:18px Departure,monospace;fill:#fff0d1}
+.paver-route-target{fill:#2b2017;stroke:#ffe2bc;stroke-width:1.5}
+.paver-map-label{fill:#2b2017;font:16px Departure,monospace;paint-order:stroke;stroke:#f3a65f;stroke-width:3px;stroke-linejoin:round}
+.paver-node-letter,.paver-patch-letter{font:18px Departure,monospace;fill:#fff0dd}
 .paver-patch-letter{font-size:16px}
-.paver-north,.paver-scale{fill:none;stroke:#645d3d;stroke-width:1.5}
-.paver-support-edge{fill:none;stroke:#827236;stroke-width:1;stroke-dasharray:3 4}
+.paver-north,.paver-scale{fill:none;stroke:#925421;stroke-width:1.5}
+.paver-support-edge{fill:none;stroke:#925421;stroke-width:1;stroke-dasharray:3 4}
 .paver-map-caption{min-height:3.1875rem}
 .paver-footer{display:flex;justify-content:space-between;align-items:baseline;gap:1.375rem;flex-wrap:wrap}
 .paver-footer details{flex:1;min-width:15rem}
