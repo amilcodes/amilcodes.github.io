@@ -103,7 +103,7 @@ dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();
 document.addEventListener('visibilitychange',syncMedia);
 reducedMotion.addEventListener('change',()=>{for(const group of groups)group.paused=reducedMotion.matches;syncMedia();});
 syncMedia();
-import { setupBenchmarks } from './benchmarks.js';
+import { setupBenchmarks } from './benchmarks.js?v=full500-v2';
 setupBenchmarks({ reducedMotion });
 
 

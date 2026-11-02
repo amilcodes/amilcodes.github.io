@@ -2,7 +2,7 @@ export const projects = ['about', 'rsgbot', 'rapidtinyrec', 'sysvrc', 'paver', '
 export const recordings = ['rsg-overworld-kit-v6', 'rsg-portal-complete-v2', 'rsg-fortress-crossing-v3', 'rsg-bastion-gold-v4', 'sysvrc-autonomous-skills-5x', 'sysvrc-driver-skills-5x', 'sysvrc-dashboard-full', 'wild-viewer-film', 'stemp-boombap'];
 const destinations = ['github', 'email', 'linkedin', 'project-site', 'paper', 'poster', 'emergent', 'brownie-research', 'other-reference'];
 const controls = ['motion', 'sound', 'mercury-degree', 'benchmark-comparison'];
-const values = ['play', 'pause', 'mute', 'unmute', '25', '50', '100', 'shared-prefill', 'batched-constraints', 'gpu-constraints', 'compiled-forward', 'native-gqa'];
+const values = ['play', 'pause', 'mute', 'unmute', '25', '50', '100', 'shared-prefill', 'batched-constraints', 'gpu-constraints', 'compiled-forward', 'native-gqa', 'decode-replay', 'input-arena', 'shared-prefix', 'folded-query-heads'];
 const rules = {
   'project-view': {project: projects},
   'outbound-click': {project: projects, destination: destinations},

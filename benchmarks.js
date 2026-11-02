@@ -5,13 +5,6 @@ export async function setupBenchmarks({ reducedMotion }) {
   const ns = 'http://www.w3.org/2000/svg';
   const windowSize = 80;
   const requestsPerSecond = 40;
-  const descriptions = {
-    'shared-prefill': 'Compute the history once, reuse it across beams.',
-    'batched-constraints': 'Apply recommendation constraints to the beams in a batch.',
-    'gpu-constraints': 'Move constraint lookup onto the GPU.',
-    'compiled-forward': 'Compile the model. Median improves slightly; p95 gets worse.',
-    'native-gqa': 'Two KV heads, without expanding them to twelve.'
-  };
   const charts = [];
   let phase = windowSize - 1;
   let paused = reducedMotion.matches;
@@ -38,18 +31,18 @@ export async function setupBenchmarks({ reducedMotion }) {
     const before = median(data.requests.map(row => row[0]));
     const after = median(data.requests.map(row => row[1]));
     figure.querySelector('h3').textContent = data.label;
-    figure.querySelector('.median-before').textContent = Math.round(before);
-    figure.querySelector('.median-after').textContent = Math.round(after);
-    figure.querySelector('.chart-description').textContent = descriptions[data.id];
+    figure.querySelector('.median-before').textContent = before.toFixed(data.decimals ?? 0);
+    figure.querySelector('.median-after').textContent = after.toFixed(data.decimals ?? 0);
+    figure.querySelector('.chart-description').textContent = data.description;
     figure.querySelector('.key-before').textContent = data.beforeName;
     figure.querySelector('.key-after').textContent = data.afterName;
     svg.setAttribute('aria-label', `${data.label}: median ${before.toFixed(3)} to ${after.toFixed(3)} milliseconds. Replaying 500 recorded paired requests.`);
     const width = Math.max(280, Math.round(svg.clientWidth));
     const height = width < 400 ? 240 : 280;
     const values = data.requests.flat();
-    const quantum = data.id === 'shared-prefill' ? 400 : 20;
+    const quantum = data.quantum ?? 20;
     const low = data.id === 'shared-prefill' ? 0 : Math.floor(Math.min(...values) / quantum) * quantum;
-    const high = Math.ceil(Math.max(...values) / quantum) * quantum;
+    const high = data.axisMax ?? Math.ceil(Math.max(...values) / quantum) * quantum;
     chart.geometry = { width, height, left: 48, right: width - 12, top: 22, bottom: height - 33, low, high };
     const { left, right, top, bottom } = chart.geometry;
     chart.y = value => bottom - (value - low) / (high - low) * (bottom - top);
@@ -60,8 +53,9 @@ export async function setupBenchmarks({ reducedMotion }) {
     clip.append(node('rect', { x: left, y: top - 4, width: right - left + 4, height: bottom - top + 8 }));
     defs.append(clip);
     svg.append(defs);
-    for (let i = 0; i < 4; i++) {
-      const value = low + (high - low) * i / 3;
+    const intervals = data.axisMax ? 4 : 3;
+    for (let i = 0; i <= intervals; i++) {
+      const value = low + (high - low) * i / intervals;
       const y = chart.y(value);
       svg.append(node('line', { x1: left, x2: right, y1: y, y2: y, class: 'grid-line' }));
       svg.append(node('text', { x: left - 10, y: y + 4, 'text-anchor': 'end' }, Math.round(value)));
@@ -75,6 +69,10 @@ export async function setupBenchmarks({ reducedMotion }) {
     chart.heads = ['before', 'after'].map(kind => node('rect', { width: 6, height: 6, class: `head-${kind}` }));
     traces.append(...chart.paths, ...chart.heads);
     svg.append(traces);
+    // Retain the raw value and explicitly label any point beyond a display cap.
+    // A single BF16 outlier would otherwise flatten 499 requests into one line.
+    chart.outliers = node('g', { class: 'chart-outliers' });
+    svg.append(chart.outliers);
     render(chart);
   }
 
@@ -86,6 +84,7 @@ export async function setupBenchmarks({ reducedMotion }) {
     const fraction = phase - end;
     const dx = (g.right - g.left) / (windowSize - 1);
     const paths = ['', ''];
+    const outliers = [];
     // Include one sample beyond the left clip so the trace scrolls continuously.
     for (let offset = -1; offset < windowSize; offset++) {
       const index = modulo(start + offset, data.requests.length);
@@ -93,9 +92,16 @@ export async function setupBenchmarks({ reducedMotion }) {
       const command = offset === -1 || index === 0 ? 'M' : 'L';
       for (let series = 0; series < 2; series++) {
         paths[series] += `${command}${x.toFixed(2)},${chart.y(data.requests[index][series]).toFixed(2)} `;
+        if (x >= g.left && x <= g.right && data.requests[index][series] > g.high) {
+          outliers.push({ x, value: data.requests[index][series] });
+        }
       }
     }
     chart.paths.forEach((path, i) => path.setAttribute('d', paths[i]));
+    chart.outliers.replaceChildren(...outliers.flatMap(({ x, value }) => [
+      node('path', { d: `M${x - 4},${g.top + 5} L${x},${g.top} L${x + 4},${g.top + 5}`, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2 }),
+      node('text', { x: Math.max(g.left + 42, Math.min(g.right - 42, x)), y: g.top - 7, 'text-anchor': 'middle' }, `↑ ${value.toFixed(1)} ms`)
+    ]));
     const index = modulo(end, data.requests.length);
     const row = data.requests[index];
     chart.heads.forEach((head, i) => {
@@ -138,11 +144,11 @@ export async function setupBenchmarks({ reducedMotion }) {
   reducedMotion.addEventListener('change', () => { paused = reducedMotion.matches; sync(); });
 
   try {
-    const response = await fetch('assets/benchmarks.json');
+    const response = await fetch('assets/benchmarks.json?v=full500-v2');
     if (!response.ok) throw new Error('Benchmark data unavailable');
     const data = await response.json();
     if (data.some(d => d.requests.length !== 500 || d.requests.some(row => row.length !== 2 || row.some(v => !Number.isFinite(v))))) throw new Error('Invalid measurements');
-    for (const [selector, id] of [['#prefill-chart', 'shared-prefill'], ['#gqa-chart', 'native-gqa']]) {
+    for (const [selector, id] of [['#prefill-chart', 'folded-query-heads'], ['#gqa-chart', 'bf16']]) {
       const figure = document.querySelector(selector);
       const svg = figure.querySelector('svg');
       const chart = { figure, svg, data: data.find(d => d.id === id), readout: figure.querySelector('output') };
@@ -161,12 +167,12 @@ export async function setupBenchmarks({ reducedMotion }) {
       });
     }
     const experiments = document.querySelector('.experiments');
-    for (const comparison of data.filter(d => d.id !== 'native-gqa')) {
+    for (const comparison of data.filter(d => d.id !== 'bf16')) {
       const button = document.createElement('button');
       button.className = 'experiment';
       button.textContent = comparison.label;
       button.dataset.comparison = comparison.id;
-      button.setAttribute('aria-pressed', String(comparison.id === 'shared-prefill'));
+      button.setAttribute('aria-pressed', String(comparison.id === 'folded-query-heads'));
       button.addEventListener('click', () => {
         charts[0].data = comparison;
         rebuild(charts[0]);

@@ -9,7 +9,7 @@
   <link rel="icon" href="assets/aa-icon-96.png" type="image/png" sizes="96x96">
   <link rel="icon" href="assets/mark.svg?v=aa" type="image/svg+xml" sizes="any">
   <link rel="apple-touch-icon" href="assets/aa-icon-180.png">
-  <link rel="stylesheet" href="style.css?v=desktop-proportions9"><script type="module" src="app.js?v=rsg-overworld6"></script>
+  <link rel="stylesheet" href="style.css?v=rapid-full500-v2"><script type="module" src="app.js?v=rapid-full500-v2"></script>
 <script type="module" src="analytics.js?v=1"></script>
 </head>
 <body>
@@ -50,24 +50,24 @@
   <div class="media-footer"><details><summary>Run notes</summary><div class="notes"><p>Excerpts from longer agent runs, with thinking intervals removed or accelerated. The strips replay timestamped agent commands: highlights show explicit requested controls, while higher-level skills remain named actions. These archives do not contain measured key-down or mouse-event traces. Select a clip for its source and outcome.</p></div></details><button class="motion" data-motion-for="rsg-quad">Pause</button></div>
  </div></section>
  <section class="project rapid" id="rapidtinyrec" aria-labelledby="rapid-title"><div class="width">
-  <header class="project-heading"><h2 id="rapid-title"><a href="https://github.com/amilcodes/RapidTinyRec">RapidTinyRec</a></h2><div class="project-summary"><p>Optimizing MiniOneRec inference with shared KV caches, batched constraints, and native GQA.</p><nav class="project-links" aria-label="RapidTinyRec links"><a href="https://github.com/amilcodes/RapidTinyRec">GitHub ↗</a><a href="https://github.com/amilcodes/RapidTinyRec/blob/main/docs/benchmarks.md">Benchmarks ↗</a></nav></div></header>
+  <header class="project-heading"><h2 id="rapid-title"><a href="https://github.com/amilcodes/RapidTinyRec">RapidTinyRec</a></h2><div class="project-summary"><p>Optimizing MiniOneRec inference with shared KV caches, decode replay, and folded attention heads.</p><nav class="project-links" aria-label="RapidTinyRec links"><a href="https://github.com/amilcodes/RapidTinyRec">GitHub ↗</a><a href="https://github.com/amilcodes/RapidTinyRec/blob/main/docs/benchmarks.md">Benchmarks ↗</a></nav></div></header>
   <div class="benchmark">
    <div class="chart-pair">
     <figure class="benchmark-chart" id="prefill-chart">
-     <figcaption><h3>Shared prefill</h3><p class="chart-median"><span class="median-before">869</span><span class="median-arrow">→</span><span class="median-after">188</span><span class="chart-unit">ms median</span></p><p class="chart-description">Compute the history once, reuse it across beams.</p></figcaption>
-     <div class="chart-key"><span class="key-before">Released loop</span><span class="key-after">Shared prefill</span></div>
-     <svg class="benchmark-plot" id="latency-plot" tabindex="0" role="img" aria-label="Shared prefill generation latency, replaying 500 recorded paired requests" aria-description="Arrow keys pause the animation to inspect recorded requests."></svg>
+     <figcaption><h3>Folded heads · FP32</h3><p class="chart-median"><span class="median-before">127.2</span><span class="median-arrow">→</span><span class="median-after">114.8</span><span class="chart-unit">ms median</span></p><p class="chart-description">Pack query heads into rows; ranks and scores stay exact.</p></figcaption>
+     <div class="chart-key"><span class="key-before">Native GQA + prefix</span><span class="key-after">Folded heads</span></div>
+     <svg class="benchmark-plot" id="latency-plot" tabindex="0" role="img" aria-label="Folded heads FP32 generation latency, replaying 500 recorded paired requests" aria-description="Arrow keys pause the animation to inspect recorded requests."></svg>
      <output class="chart-readout" aria-live="off">Loading recorded requests…</output>
     </figure>
     <figure class="benchmark-chart" id="gqa-chart">
-     <figcaption><h3>Native GQA</h3><p class="chart-median"><span class="median-before">174</span><span class="median-arrow">→</span><span class="median-after">160</span><span class="chart-unit">ms median</span></p><p class="chart-description">Two KV heads, without expanding them to twelve.</p></figcaption>
-     <div class="chart-key"><span class="key-before">Compiled</span><span class="key-after">Native GQA</span></div>
-     <svg class="benchmark-plot" id="gqa-plot" tabindex="0" role="img" aria-label="Native GQA generation latency, replaying 500 recorded paired requests" aria-description="Arrow keys pause the animation to inspect recorded requests."></svg>
+     <figcaption><h3>BF16 · experimental</h3><p class="chart-median"><span class="median-before">82.2</span><span class="median-arrow">→</span><span class="median-after">56.5</span><span class="chart-unit">ms median</span></p><p class="chart-description">Lower precision for speed; rankings change.</p></figcaption>
+     <div class="chart-key"><span class="key-before">TF32 control</span><span class="key-after">BF16</span></div>
+     <svg class="benchmark-plot" id="gqa-plot" tabindex="0" role="img" aria-label="Experimental BF16 versus TF32 generation latency, replaying 500 recorded paired requests" aria-description="Arrow keys pause the animation to inspect recorded requests."></svg>
      <output class="chart-readout" aria-live="off">Loading recorded requests…</output>
     </figure>
    </div>
    <div class="chart-footer"><p>Traces replay 500 measured requests.</p><button id="chart-motion" class="motion" aria-pressed="false">Pause charts</button></div>
-   <details class="benchmark-details"><summary>Other comparisons &amp; measurement notes</summary><div class="experiments" role="group" aria-label="Left chart comparison"></div><p class="notes">Separate paired experiments, FP32 on an RTX A6000. Compilation and warmup excluded. Each trace shows an 80-request window in recorded order, looping at the end; these are recorded measurements. All 25,000 ranked positions match in each comparison; shared prefill and compilation retain small floating-point score differences. <a href="https://github.com/amilcodes/RapidTinyRec/blob/main/docs/benchmarks.md">Protocol &amp; source data</a></p></details>
+   <details class="benchmark-details"><summary>Other comparisons &amp; measurement notes</summary><div class="experiments" role="group" aria-label="Left chart comparison"></div><p class="notes">Separate paired experiments on the same 500-user Office cohort, RTX A6000, batch 1, beam 50. Model loading, compilation, capture and warmup excluded. Traces show 80-request windows in cohort order, retaining outliers and looping at the end; they are recorded measurements, not live inference. FP32 folded heads preserve all 25,000 ranks and sequence scores against their paired control. BF16 is paired with TF32, changes all 500 full rank lists, and does not establish equivalent quality. FP32 remains the default. The 693.8 ms BF16 outlier is retained and marked above its 90 ms display range. <a href="https://github.com/amilcodes/RapidTinyRec/blob/main/docs/benchmarks.md">FP32 evidence</a> · <a href="https://github.com/amilcodes/RapidTinyRec/blob/main/docs/precision-results.md">Precision &amp; quality</a></p></details>
   </div>
  </div></section>
  <section class="project robot" id="sysvrc" aria-labelledby="robot-title"><div class="width">
