@@ -36,12 +36,14 @@ export async function setupBenchmarks({ reducedMotion }) {
     figure.querySelector('.chart-description').textContent = data.description;
     figure.querySelector('.key-before').textContent = data.beforeName;
     figure.querySelector('.key-after').textContent = data.afterName;
-    svg.setAttribute('aria-label', `${data.label}: median ${before.toFixed(3)} to ${after.toFixed(3)} milliseconds. Replaying 500 recorded paired requests.`);
+    const context = data.comparisonKind === 'historical' ? 'Same 500 users measured in separate historical runs; not a new paired experiment.' : 'Replaying 500 recorded paired requests.';
+    svg.setAttribute('aria-label', `${data.label}: median ${before.toFixed(3)} to ${after.toFixed(3)} milliseconds. ${context}`);
+    svg.dataset.comparisonKind = data.comparisonKind ?? 'paired';
     const width = Math.max(280, Math.round(svg.clientWidth));
     const height = width < 400 ? 240 : 280;
     const values = data.requests.flat();
     const quantum = data.quantum ?? 20;
-    const low = data.id === 'shared-prefill' ? 0 : Math.floor(Math.min(...values) / quantum) * quantum;
+    const low = data.axisMin ?? (data.id === 'shared-prefill' ? 0 : Math.floor(Math.min(...values) / quantum) * quantum);
     const high = data.axisMax ?? Math.ceil(Math.max(...values) / quantum) * quantum;
     chart.geometry = { width, height, left: 48, right: width - 12, top: 22, bottom: height - 33, low, high };
     const { left, right, top, bottom } = chart.geometry;
@@ -144,11 +146,11 @@ export async function setupBenchmarks({ reducedMotion }) {
   reducedMotion.addEventListener('change', () => { paused = reducedMotion.matches; sync(); });
 
   try {
-    const response = await fetch('assets/benchmarks.json?v=full500-v2');
+    const response = await fetch('assets/benchmarks.json?v=overall-v3');
     if (!response.ok) throw new Error('Benchmark data unavailable');
     const data = await response.json();
     if (data.some(d => d.requests.length !== 500 || d.requests.some(row => row.length !== 2 || row.some(v => !Number.isFinite(v))))) throw new Error('Invalid measurements');
-    for (const [selector, id] of [['#prefill-chart', 'folded-query-heads'], ['#gqa-chart', 'bf16']]) {
+    for (const [selector, id] of [['#prefill-chart', 'overall-fp32'], ['#gqa-chart', 'overall-bf16']]) {
       const figure = document.querySelector(selector);
       const svg = figure.querySelector('svg');
       const chart = { figure, svg, data: data.find(d => d.id === id), readout: figure.querySelector('output') };
@@ -167,12 +169,12 @@ export async function setupBenchmarks({ reducedMotion }) {
       });
     }
     const experiments = document.querySelector('.experiments');
-    for (const comparison of data.filter(d => d.id !== 'bf16')) {
+    for (const comparison of data.filter(d => d.id !== 'overall-bf16')) {
       const button = document.createElement('button');
       button.className = 'experiment';
       button.textContent = comparison.label;
       button.dataset.comparison = comparison.id;
-      button.setAttribute('aria-pressed', String(comparison.id === 'folded-query-heads'));
+      button.setAttribute('aria-pressed', String(comparison.id === 'overall-fp32'));
       button.addEventListener('click', () => {
         charts[0].data = comparison;
         rebuild(charts[0]);

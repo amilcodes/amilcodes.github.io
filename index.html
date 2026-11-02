@@ -9,7 +9,7 @@
   <link rel="icon" href="assets/aa-icon-96.png" type="image/png" sizes="96x96">
   <link rel="icon" href="assets/mark.svg?v=aa" type="image/svg+xml" sizes="any">
   <link rel="apple-touch-icon" href="assets/aa-icon-180.png">
-  <link rel="stylesheet" href="style.css?v=rapid-full500-v2"><script type="module" src="app.js?v=rapid-full500-v2"></script>
+  <link rel="stylesheet" href="style.css?v=rapid-full500-v2"><script type="module" src="app.js?v=rapid-overall-v3"></script>
 <script type="module" src="analytics.js?v=1"></script>
 </head>
 <body>
@@ -54,20 +54,20 @@
   <div class="benchmark">
    <div class="chart-pair">
     <figure class="benchmark-chart" id="prefill-chart">
-     <figcaption><h3>Folded heads · FP32</h3><p class="chart-median"><span class="median-before">127.2</span><span class="median-arrow">→</span><span class="median-after">114.8</span><span class="chart-unit">ms median</span></p><p class="chart-description">Pack query heads into rows; ranks and scores stay exact.</p></figcaption>
-     <div class="chart-key"><span class="key-before">Native GQA + prefix</span><span class="key-after">Folded heads</span></div>
-     <svg class="benchmark-plot" id="latency-plot" tabindex="0" role="img" aria-label="Folded heads FP32 generation latency, replaying 500 recorded paired requests" aria-description="Arrow keys pause the animation to inspect recorded requests."></svg>
+     <figcaption><h3>Original → optimized FP32</h3><p class="chart-median"><span class="median-before">868.8</span><span class="median-arrow">→</span><span class="median-after">114.8</span><span class="chart-unit">ms median</span></p><p class="chart-description">7.6× median speedup. Same rankings; separate recorded runs.</p></figcaption>
+     <div class="chart-key"><span class="key-before">Original loop · FP32</span><span class="key-after">Optimized FP32</span></div>
+     <svg class="benchmark-plot" id="latency-plot" tabindex="0" role="img" aria-label="Original versus optimized FP32 latency, same 500 users measured in separate historical runs" aria-description="Arrow keys pause the animation to inspect recorded requests."></svg>
      <output class="chart-readout" aria-live="off">Loading recorded requests…</output>
     </figure>
     <figure class="benchmark-chart" id="gqa-chart">
-     <figcaption><h3>BF16 · experimental</h3><p class="chart-median"><span class="median-before">82.2</span><span class="median-arrow">→</span><span class="median-after">56.5</span><span class="chart-unit">ms median</span></p><p class="chart-description">Lower precision for speed; rankings change.</p></figcaption>
-     <div class="chart-key"><span class="key-before">TF32 control</span><span class="key-after">BF16</span></div>
-     <svg class="benchmark-plot" id="gqa-plot" tabindex="0" role="img" aria-label="Experimental BF16 versus TF32 generation latency, replaying 500 recorded paired requests" aria-description="Arrow keys pause the animation to inspect recorded requests."></svg>
+     <figcaption><h3>Original → experimental BF16</h3><p class="chart-median"><span class="median-before">868.8</span><span class="median-arrow">→</span><span class="median-after">56.5</span><span class="chart-unit">ms median</span></p><p class="chart-description">15.4× median speedup. Rankings change; separate recorded runs.</p></figcaption>
+     <div class="chart-key"><span class="key-before">Original loop · FP32</span><span class="key-after">Experimental BF16</span></div>
+     <svg class="benchmark-plot" id="gqa-plot" tabindex="0" role="img" aria-label="Original FP32 versus experimental BF16 latency, same 500 users measured in separate historical runs" aria-description="Arrow keys pause the animation to inspect recorded requests."></svg>
      <output class="chart-readout" aria-live="off">Loading recorded requests…</output>
     </figure>
    </div>
-   <div class="chart-footer"><p>Traces replay 500 measured requests.</p><button id="chart-motion" class="motion" aria-pressed="false">Pause charts</button></div>
-   <details class="benchmark-details"><summary>Other comparisons &amp; measurement notes</summary><div class="experiments" role="group" aria-label="Left chart comparison"></div><p class="notes">Separate paired experiments on the same 500-user Office cohort, RTX A6000, batch 1, beam 50. Model loading, compilation, capture and warmup excluded. Traces show 80-request windows in cohort order, retaining outliers and looping at the end; they are recorded measurements, not live inference. FP32 folded heads preserve all 25,000 ranks and sequence scores against their paired control. BF16 is paired with TF32, changes all 500 full rank lists, and does not establish equivalent quality. FP32 remains the default. The 693.8 ms BF16 outlier is retained and marked above its 90 ms display range. <a href="https://github.com/amilcodes/RapidTinyRec/blob/main/docs/benchmarks.md">FP32 evidence</a> · <a href="https://github.com/amilcodes/RapidTinyRec/blob/main/docs/precision-results.md">Precision &amp; quality</a></p></details>
+   <div class="chart-footer"><p>Same 500-user cohort · recorded measurements.</p><button id="chart-motion" class="motion" aria-pressed="false">Pause charts</button></div>
+   <details class="benchmark-details"><summary>Other comparisons &amp; measurement notes</summary><div class="experiments" role="group" aria-label="Left chart comparison"></div><p class="notes">Overall comparisons align the original released-loop timings with later optimized timings by cohort index. Same Office checkpoint, 500 users, RTX A6000, batch 1 and beam 50; measured in separate runs, not a new paired experiment. Speedups are ratios of the two measured medians, not multiplied per-step gains. The optimized FP32 run matches all 500 original ranking lists; scores are not bitwise identical. BF16 is experimental and changes rankings. Model loading, compilation, capture and warmup are excluded. Traces show 80-request windows in cohort order and retain all measurements. The individual optimization comparisons keep their own paired controls; the isolated BF16 comparison marks its 693.8 ms outlier above the 90 ms axis. <a href="https://github.com/amilcodes/RapidTinyRec/blob/e334219e196c4e7b5f88a46043fc67c6b89df92f/benchmarks/results/shared-prefill/requests.csv">Original timings</a> · <a href="https://github.com/amilcodes/RapidTinyRec/blob/main/docs/benchmarks.md">FP32 evidence</a> · <a href="https://github.com/amilcodes/RapidTinyRec/blob/main/docs/precision-results.md">Precision &amp; quality</a></p></details>
   </div>
  </div></section>
  <section class="project robot" id="sysvrc" aria-labelledby="robot-title"><div class="width">
