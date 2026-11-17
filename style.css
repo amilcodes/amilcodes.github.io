@@ -154,5 +154,62 @@
 @media(max-width:855px){.project-heading{grid-template-columns:1fr;row-gap:1.03125rem}.project-heading .project-links{grid-column:1;grid-row:3;justify-self:start}.project-heading>.project-summary>p{grid-column:1;max-width:66ch}}
 @media(max-width:640px){.project-heading{row-gap:0.875rem;margin-bottom:1.75rem}.project-heading>.project-summary>p{font-size:1.1rem}.paver-acronym{max-width:40ch}}
 
+.rapid-evidence{
+  display:grid;
+  grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);
+  gap:2.25rem;
+  align-items:start;
+}
+.rapid-latency{
+  padding:1.5rem;
+  background:#282337;
+  border:1px solid var(--line);
+}
+.rapid-latency h3{font-size:1.375rem}
+.rapid-latency figcaption p{margin-top:0.375rem;color:var(--baseline);font-size:0.9375rem}
+.rapid-bars{display:grid;gap:0.9375rem;margin:1.375rem 0 0;padding:0;list-style:none}
+.rapid-bars li{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  column-gap:0.75rem;
+  align-items:baseline;
+  font-size:1rem;
+}
+.rapid-time{white-space:nowrap;font-variant-numeric:tabular-nums}
+.rapid-bar{grid-column:1/-1;height:0.625rem;margin-top:0.375rem;background:#40384e}
+.rapid-bar::before{
+  display:block;
+  width:calc(100% * var(--latency) / 6);
+  height:100%;
+  background:var(--baseline);
+  content:"";
+}
+.rapid-fastest{color:var(--accent)}
+.rapid-fastest .rapid-bar::before{background:var(--accent)}
+.rapid-axis{
+  display:grid;
+  grid-template-columns:repeat(3,1fr) 0;
+  margin-top:0.25rem;
+  color:var(--baseline);
+  font-size:0.8125rem;
+}
+.rapid-axis span{justify-self:start;white-space:nowrap;transform:translateX(-50%)}
+.rapid-axis span:first-child{transform:none}
+.rapid-axis span:last-child{justify-self:end;transform:none}
+.rapid-results{display:grid;gap:1.125rem;margin:0}
+.rapid-results div{border-top:1px dotted var(--line);padding-top:0.75rem}
+.rapid-results dt{font-size:1.125rem;line-height:1.35}
+.rapid-results strong{color:var(--accent);font-size:1.75rem;font-weight:400}
+.rapid-results dd{margin:0.25rem 0 0;font-size:1rem;line-height:1.55}
+.rapid-verification{max-width:86ch;margin:1.375rem 0;font-size:1rem;line-height:1.6}
+.rapid-history{border-top:1px dotted var(--line);padding-top:1rem;font-size:1.03125rem}
+.rapid-history>summary{list-style:revert}
+.rapid-history>summary::-webkit-details-marker{display:revert}
+.rapid-history>.benchmark{margin-top:1.25rem}
+@media(max-width:760px){
+  .rapid-evidence{grid-template-columns:1fr;gap:1.375rem}
+  .rapid-latency{padding:1.125rem}
+}
+
 /* Desktop matches the former 90% view. Keep mobile sizing and browser zoom usable. */
 @media(min-width:851px){html{font-size:90%}}

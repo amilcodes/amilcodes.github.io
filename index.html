@@ -9,7 +9,7 @@
   <link rel="icon" href="assets/aa-icon-96.png" type="image/png" sizes="96x96">
   <link rel="icon" href="assets/mark.svg?v=aa" type="image/svg+xml" sizes="any">
   <link rel="apple-touch-icon" href="assets/aa-icon-180.png">
-  <link rel="stylesheet" href="style.css?v=internship-grid"><script type="module" src="app.js?v=rapid-overall-v3"></script>
+  <link rel="stylesheet" href="style.css?v=rapid-h100"><script type="module" src="app.js?v=rapid-overall-v3"></script>
 <script type="module" src="analytics.js?v=1"></script>
 </head>
 <body>
@@ -65,25 +65,68 @@
   <div class="media-footer"><details><summary>Run notes</summary><div class="notes"><p>Excerpts from longer agent runs, with thinking intervals removed or accelerated. The strips replay timestamped agent commands: highlights show explicit requested controls, while higher-level skills remain named actions. These archives do not contain measured key-down or mouse-event traces. Select a clip for its source and outcome.</p></div></details><button class="motion" data-motion-for="rsg-quad">Pause</button></div>
  </div></section>
  <section class="project rapid" id="rapidtinyrec" aria-labelledby="rapid-title"><div class="width">
-  <header class="project-heading"><h2 id="rapid-title"><a href="https://github.com/amilcodes/RapidTinyRec">RapidTinyRec</a></h2><div class="project-summary"><p>Optimizing MiniOneRec inference with shared KV caches, decode replay, and folded attention heads.</p><nav class="project-links" aria-label="RapidTinyRec links"><a href="https://github.com/amilcodes/RapidTinyRec">GitHub ↗</a><a href="https://github.com/amilcodes/RapidTinyRec/blob/main/docs/benchmarks.md">Benchmarks ↗</a></nav></div></header>
-  <div class="benchmark">
-   <div class="chart-pair">
-    <figure class="benchmark-chart" id="prefill-chart">
-     <figcaption><h3>Original → optimized FP32</h3><p class="chart-median"><span class="median-before">868.8</span><span class="median-arrow">→</span><span class="median-after">114.8</span><span class="chart-unit">ms median</span></p><p class="chart-description">7.6× median speedup. Same rankings; separate recorded runs.</p></figcaption>
-     <div class="chart-key"><span class="key-before">Original loop · FP32</span><span class="key-after">Optimized FP32</span></div>
-     <svg class="benchmark-plot" id="latency-plot" tabindex="0" role="img" aria-label="Original versus optimized FP32 latency, same 500 users measured in separate historical runs" aria-description="Arrow keys pause the animation to inspect recorded requests."></svg>
-     <output class="chart-readout" aria-live="off">Loading recorded requests…</output>
-    </figure>
-    <figure class="benchmark-chart" id="gqa-chart">
-     <figcaption><h3>Original → experimental BF16</h3><p class="chart-median"><span class="median-before">868.8</span><span class="median-arrow">→</span><span class="median-after">56.5</span><span class="chart-unit">ms median</span></p><p class="chart-description">15.4× median speedup. Rankings change; separate recorded runs.</p></figcaption>
-     <div class="chart-key"><span class="key-before">Original loop · FP32</span><span class="key-after">Experimental BF16</span></div>
-     <svg class="benchmark-plot" id="gqa-plot" tabindex="0" role="img" aria-label="Original FP32 versus experimental BF16 latency, same 500 users measured in separate historical runs" aria-description="Arrow keys pause the animation to inspect recorded requests."></svg>
-     <output class="chart-readout" aria-live="off">Loading recorded requests…</output>
-    </figure>
+  <header class="project-heading">
+   <h2 id="rapid-title"><a href="https://github.com/amilcodes/RapidTinyRec">RapidTinyRec</a></h2>
+   <div class="project-summary">
+    <p>A CUDA and Triton engine for MiniOneRec, a 1.5B generative recommender. It replaces beam search with two passes that bound scores and certify the top K recommendations. Learned bridges let item-code tokens skip early layers.</p>
+    <nav class="project-links" aria-label="RapidTinyRec links">
+     <a href="https://github.com/amilcodes/RapidTinyRec/tree/ecdffcb77afc58653ee5a14ac7a8b591264ee0b6">Research code ↗</a>
+     <a href="https://github.com/amilcodes/RapidTinyRec/blob/ecdffcb77afc58653ee5a14ac7a8b591264ee0b6/research/paper/main.pdf">Paper draft ↗</a>
+     <a href="https://github.com/amilcodes/RapidTinyRec/pull/27">Benchmark notes ↗</a>
+    </nav>
    </div>
-   <div class="chart-footer"><p>Same 500-user cohort · recorded measurements.</p><button id="chart-motion" class="motion" aria-pressed="false">Pause charts</button></div>
-   <details class="benchmark-details"><summary>Other comparisons &amp; measurement notes</summary><div class="experiments" role="group" aria-label="Left chart comparison"></div><p class="notes">Overall comparisons align the original released-loop timings with later optimized timings by cohort index. Same Office checkpoint, 500 users, RTX A6000, batch 1 and beam 50; measured in separate runs, not a new paired experiment. Speedups are ratios of the two measured medians, not multiplied per-step gains. The optimized FP32 run matches all 500 original ranking lists; scores are not bitwise identical. BF16 is experimental and changes rankings. Model loading, compilation, capture and warmup are excluded. Traces show 80-request windows in cohort order and retain all measurements. The individual optimization comparisons keep their own paired controls; the isolated BF16 comparison marks its 693.8 ms outlier above the 90 ms axis. <a href="https://github.com/amilcodes/RapidTinyRec/blob/e334219e196c4e7b5f88a46043fc67c6b89df92f/benchmarks/results/shared-prefill/requests.csv">Original timings</a> · <a href="https://github.com/amilcodes/RapidTinyRec/blob/main/docs/benchmarks.md">FP32 evidence</a> · <a href="https://github.com/amilcodes/RapidTinyRec/blob/main/docs/precision-results.md">Precision &amp; quality</a></p></details>
+  </header>
+  <div class="rapid-evidence">
+   <figure class="rapid-latency">
+    <figcaption>
+     <h3>Median request latency</h3>
+     <p>Office · H100 · FP16 · batch 1<br>Same engine and scoring rule</p>
+    </figcaption>
+    <ul class="rapid-bars" role="list">
+     <li><span>Beam-50</span><span class="rapid-time">5.13 ms</span><span class="rapid-bar" style="--latency:5.13" aria-hidden="true"></span></li>
+     <li><span>Certified, full depth</span><span class="rapid-time">4.21 ms</span><span class="rapid-bar" style="--latency:4.21" aria-hidden="true"></span></li>
+     <li><span>+ third-code bridge</span><span class="rapid-time">3.06 ms</span><span class="rapid-bar" style="--latency:3.06" aria-hidden="true"></span></li>
+     <li class="rapid-fastest"><span>+ first-level bridge</span><span class="rapid-time">2.61 ms</span><span class="rapid-bar" style="--latency:2.61" aria-hidden="true"></span></li>
+    </ul>
+    <div class="rapid-axis" aria-hidden="true"><span>0</span><span>2</span><span>4</span><span>6 ms</span></div>
+   </figure>
+   <dl class="rapid-results">
+    <div>
+     <dt><strong>2.7×</strong> throughput</dt>
+     <dd>970 → 2,624 users/s at batch 64 versus beam-50 in the same engine.</dd>
+    </div>
+    <div>
+     <dt><strong>4.5×</strong> faster than FlashRec</dt>
+     <dd>2.57 ms versus 11.48 ms for the BF16 FlashRec Qwen2 port in a separate run on the same H100, prompts, and catalog.</dd>
+    </div>
+    <div>
+     <dt><strong>18.25%</strong> HitRate@10</dt>
+     <dd>Adding SASRec scores during search raised hit rate by 1.36 percentage points at 2.83 ms per request.</dd>
+    </div>
+   </dl>
   </div>
+  <p class="rapid-verification">The late-entry decoder certified a top-10 list for all 4,866 Office test users under its own scoring objective. HitRate@10 was 16.87% versus 16.81% for beam-50. The top item agreed with full-depth decoding for 79.5% of users.</p>
+  <details class="rapid-history">
+   <summary>Earlier A6000 benchmarks</summary>
+   <div class="benchmark">
+    <div class="chart-pair">
+     <figure class="benchmark-chart" id="prefill-chart">
+      <figcaption><h3>Original → optimized FP32</h3><p class="chart-median"><span class="median-before">868.8</span><span class="median-arrow">→</span><span class="median-after">114.8</span><span class="chart-unit">ms median</span></p><p class="chart-description">7.6× median speedup. Same rankings; separate recorded runs.</p></figcaption>
+      <div class="chart-key"><span class="key-before">Original loop · FP32</span><span class="key-after">Optimized FP32</span></div>
+      <svg class="benchmark-plot" id="latency-plot" tabindex="0" role="img" aria-label="Original versus optimized FP32 latency, same 500 users measured in separate historical runs" aria-description="Arrow keys pause the animation to inspect recorded requests."></svg>
+      <output class="chart-readout" aria-live="off">Loading recorded requests…</output>
+     </figure>
+     <figure class="benchmark-chart" id="gqa-chart">
+      <figcaption><h3>Original → experimental BF16</h3><p class="chart-median"><span class="median-before">868.8</span><span class="median-arrow">→</span><span class="median-after">56.5</span><span class="chart-unit">ms median</span></p><p class="chart-description">15.4× median speedup. Rankings change; separate recorded runs.</p></figcaption>
+      <div class="chart-key"><span class="key-before">Original loop · FP32</span><span class="key-after">Experimental BF16</span></div>
+      <svg class="benchmark-plot" id="gqa-plot" tabindex="0" role="img" aria-label="Original FP32 versus experimental BF16 latency, same 500 users measured in separate historical runs" aria-description="Arrow keys pause the animation to inspect recorded requests."></svg>
+      <output class="chart-readout" aria-live="off">Loading recorded requests…</output>
+     </figure>
+    </div>
+    <div class="chart-footer"><p>Same 500-user cohort · recorded measurements.</p><button id="chart-motion" class="motion" aria-pressed="false">Pause charts</button></div>
+    <details class="benchmark-details"><summary>Other comparisons &amp; measurement notes</summary><div class="experiments" role="group" aria-label="Left chart comparison"></div><p class="notes">Overall comparisons align the original released-loop timings with later optimized timings by cohort index. Same Office checkpoint, 500 users, RTX A6000, batch 1 and beam 50; measured in separate runs, not a new paired experiment. Speedups are ratios of the two measured medians, not multiplied per-step gains. The optimized FP32 run matches all 500 original ranking lists; scores are not bitwise identical. BF16 is experimental and changes rankings. Model loading, compilation, capture and warmup are excluded. Traces show 80-request windows in cohort order and retain all measurements. The individual optimization comparisons keep their own paired controls; the isolated BF16 comparison marks its 693.8 ms outlier above the 90 ms axis. <a href="https://github.com/amilcodes/RapidTinyRec/blob/e334219e196c4e7b5f88a46043fc67c6b89df92f/benchmarks/results/shared-prefill/requests.csv">Original timings</a> · <a href="https://github.com/amilcodes/RapidTinyRec/blob/main/docs/benchmarks.md">FP32 evidence</a> · <a href="https://github.com/amilcodes/RapidTinyRec/blob/main/docs/precision-results.md">Precision &amp; quality</a></p></details>
+   </div>
+  </details>
  </div></section>
  <section class="project robot" id="sysvrc" aria-labelledby="robot-title"><div class="width">
   <header class="project-heading"><h2 id="robot-title"><a href="https://github.com/amilcodes/SysVRC">SysVRC</a></h2><div class="project-summary"><p>Autonomous VRC routines in ROS 2 and Gazebo. The field, controller estimate, and command trace on one timeline.</p><nav class="project-links" aria-label="SysVRC links"><a href="https://github.com/amilcodes/SysVRC">GitHub ↗</a></nav></div></header>
