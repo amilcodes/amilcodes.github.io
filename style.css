@@ -214,51 +214,32 @@
 /* Desktop matches the former 90% view. Keep mobile sizing and browser zoom usable. */
 @media(min-width:851px){html{font-size:90%}}
 
-.mc-evals {
-  --paper: #2d262b;
-  --ink: #f3e8da;
-  --accent: #edba86;
-  --line: #937a72;
-}
-.mc-example {
-  display: grid;
-  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
-  align-items: center;
-  gap: 2rem;
-}
-.mc-example video { width: 100%; background: #101417; }
-.mc-example h3 { font-size: 1.25rem; color: var(--accent); }
-.mc-example p { margin-top: .85rem; font-size: 1.03125rem; line-height: 1.65; }
-@media (max-width: 850px) {
-  .mc-example { grid-template-columns: 1fr; gap: 1.25rem; }
-}
 
-.wild-results {
-  padding-block: 1.6rem 2.5rem;
-  border-top: 1px solid var(--line);
+.mc-evals { --paper:#24292b; --ink:#e7e8dd; --accent:#bcd2bb; --line:#6f827d; }
+.wild-layout { display:grid; grid-template-columns:minmax(0,1.55fr) minmax(0,1fr); gap:2.5rem; align-items:start; }
+.wild-film video { width:100%; height:auto; }
+.wild-film figcaption { margin-top:.7rem; font-size:1rem; }
+.wild-ranking { font-size:1rem; }
+.wild-ranking > figcaption { display:flex; justify-content:space-between; gap:1rem; padding-bottom:.7rem; border-bottom:1px solid var(--line); }
+.wild-ranking > figcaption span:last-child { color:var(--accent); }
+.wild-ranking ol { list-style:none; margin:.5rem 0 0; padding:0; }
+.wild-ranking li { display:grid; grid-template-columns:8.5rem minmax(0,1fr) 2.6rem; align-items:center; gap:.7rem; padding:.34rem 0; }
+.wild-ranking li > span:last-child { text-align:right; font-variant-numeric:tabular-nums; }
+.wild-bar { height:2px; background:color-mix(in srgb,var(--line) 25%,transparent); }
+.wild-bar i { display:block; height:2px; background:var(--accent); }
+.wild-ranking .baseline { color:var(--accent); }
+.wild-ranking .baseline .wild-bar i { background:var(--line); }
+.wild-ranking .baseline:first-of-type { margin-top:.5rem; }
+.wild-ranking > p { font-size:.9rem; margin-top:.8rem; color:var(--accent); }
+.mc-films { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+.mc-films video { width:100%; height:auto; }
+.mc-films figcaption { display:flex; justify-content:space-between; flex-wrap:wrap; gap:.5rem 1rem; margin-top:.7rem; font-size:1rem; }
+.mc-films figcaption span:last-child { color:var(--accent); }
+@media(max-width:850px) {
+ .wild-layout { grid-template-columns:1fr; gap:1.75rem; }
+ .wild-ranking li { grid-template-columns:10rem minmax(0,1fr) 3rem; }
 }
-.wild-results h3, .wild-replay-title { font-size: clamp(1.25rem, 2.3vw, 1.65rem); }
-.wild-method { max-width: 79ch; margin: .8rem 0 1.5rem; font-size: 1.06rem; line-height: 1.65; }
-.wild-results-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(20rem, 1fr);
-  align-items: start;
-  gap: clamp(1.25rem, 3vw, 2.75rem);
-}
-.wild-plot a { display: block; }
-.wild-plot img { width: 100%; height: auto; }
-.wild-plot figcaption { margin-top: .8rem; font-size: 1rem; line-height: 1.65; }
-.wild-scores { min-width: 0; }
-.wild-scores table { width: 100%; border-collapse: collapse; font-size: 1rem; font-variant-numeric: tabular-nums; }
-.wild-scores caption { text-align: left; font-size: 1.2rem; margin-bottom: .55rem; }
-.wild-scores th { text-align: left; font-weight: normal; }
-.wild-scores th, .wild-scores td { padding: .33rem .2rem; }
-.wild-scores th:first-child { padding-left: 0; }
-.wild-scores th:not(:first-child), .wild-scores td { text-align: right; white-space: nowrap; }
-.wild-scores thead { color: var(--accent); border-block: 1px solid var(--line); }
-.wild-scores tbody + tbody { border-top: 1px solid var(--line); color: var(--accent); }
-.wild-scores > a { display: inline-block; margin-top: .65rem; font-size: 1rem; }
-.wild-replay-title { border-top: 1px solid var(--line); padding-top: 1.5rem; margin-bottom: 1rem; }
-@media (max-width: 860px) {
-  .wild-results-grid { grid-template-columns: minmax(0, 1fr); }
+@media(max-width:640px) {
+ .mc-films { grid-template-columns:1fr; gap:1.5rem; }
+ .wild-ranking li { grid-template-columns:8.5rem minmax(0,1fr) 2.6rem; }
 }

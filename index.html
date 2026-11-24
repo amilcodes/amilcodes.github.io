@@ -9,7 +9,7 @@
   <link rel="icon" href="assets/aa-icon-96.png" type="image/png" sizes="96x96">
   <link rel="icon" href="assets/mark.svg?v=aa" type="image/svg+xml" sizes="any">
   <link rel="apple-touch-icon" href="assets/aa-icon-180.png">
-  <link rel="stylesheet" href="style.css?v=wild-results"><script type="module" src="app.js?v=rapid-overall-v3"></script>
+  <link rel="stylesheet" href="style.css?v=integrated-evals"><script type="module" src="app.js?v=integrated-evals"></script>
 <script type="module" src="analytics.js?v=1"></script>
 </head>
 <body>
@@ -65,70 +65,32 @@
   <div class="media-footer"><details><summary>Run notes</summary><div class="notes"><p>Excerpts from longer agent runs, with thinking intervals removed or accelerated. The strips replay timestamped agent commands: highlights show explicit requested controls, while higher-level skills remain named actions. These archives do not contain measured key-down or mouse-event traces. Select a clip for its source and outcome.</p></div></details><button class="motion" data-motion-for="rsg-quad">Pause</button></div>
  </div></section>
  <section class="project wild" id="wild-env" aria-labelledby="wild-title"><div class="width">
-  <header class="project-heading">
-   <h2 id="wild-title"><a href="https://github.com/amilcodes/wild-env">wild-env</a></h2>
-   <div class="project-summary">
-    <p>A wildfire simulator and planning benchmark. Given two possible fire forecasts, a model must decide which communities to defend, where to send crews, and when to spend scarce water. A community earns points only if its defenses are finished before the fire arrives.</p>
-    <nav class="project-links" aria-label="wild-env links"><a href="https://github.com/amilcodes/wild-env">GitHub ↗</a><a href="assets/wild-env-eval-v2.txt">Run report ↗</a></nav>
-   </div>
-  </header>
-  <section class="wild-results" aria-labelledby="wild-results-title">
-   <h3 id="wild-results-title">How close did each model get to optimal dispatch?</h3>
-   <p class="wild-method">Nine models planned for the same 32 simulated incidents, split evenly between difficulty tiers 9 and 10. A score of 100 means the plan achieved the highest possible expected value using only the information available to the model.</p>
-   <div class="wild-results-grid">
-    <figure class="wild-plot">
-     <a href="assets/wild-env-score-cost.webp" aria-label="Open the full-size planning score versus cost chart"><img src="assets/wild-env-score-cost.webp" width="2200" height="1560" loading="lazy" alt="Planning score versus estimated cost per incident, with 95% confidence intervals. GPT-6.2 Astra and Claude Fable 5.2 both reach 95.9."></a>
-     <figcaption>GPT-6.2 Astra and Claude Fable 5.2 both averaged 95.9. Their estimated costs per incident were $1.59 and $6.77, respectively, using an assumed token price for Astra.</figcaption>
-    </figure>
-    <div class="wild-scores">
-     <table>
-      <caption>Incident planning scores</caption>
-      <thead><tr><th scope="col">Planner</th><th scope="col">Mean</th><th scope="col"><abbr title="95% bootstrap confidence interval">95% CI</abbr></th></tr></thead>
-      <tbody>
-       <tr><th scope="row">GPT-6.2 Astra</th><td>95.9</td><td>95.0–96.7</td></tr>
-       <tr><th scope="row">Claude Fable 5.2</th><td>95.9</td><td>94.9–96.8</td></tr>
-       <tr><th scope="row">GPT-6 Astra</th><td>92.2</td><td>90.8–93.5</td></tr>
-       <tr><th scope="row">GPT-6.1 Sol</th><td>90.7</td><td>88.6–92.6</td></tr>
-       <tr><th scope="row">Claude Opus 5.5</th><td>90.4</td><td>89.1–91.7</td></tr>
-       <tr><th scope="row">Claude Sonnet 5.5</th><td>85.4</td><td>82.8–87.9</td></tr>
-       <tr><th scope="row">Claude Haiku 5.5</th><td>69.1</td><td>63.6–72.8</td></tr>
-       <tr><th scope="row">GPT-6.1 Terra</th><td>65.1</td><td>60.9–69.0</td></tr>
-       <tr><th scope="row">GPT-6 Luna</th><td>27.6</td><td>24.3–31.0</td></tr>
-      </tbody>
-      <tbody class="wild-baselines">
-       <tr><th scope="row">Randomized search</th><td>46.7</td><td>44.2–49.2</td></tr>
-       <tr><th scope="row">Greedy dispatch</th><td>4.2</td><td>3.8–4.5</td></tr>
-      </tbody>
-     </table>
-     <a href="assets/wild-env-eval-v2.csv" download>Download model scores (CSV)</a>
-    </div>
-   </div>
-  </section>
-  <h3 class="wild-replay-title">Simulator replay</h3>
-  <figure class="capture-wide" id="wild-capture"><button class="capture-open" data-capture="wild-viewer-film" aria-label="Open the wild-env viewer recording"><video autoplay muted loop playsinline preload="metadata" width="1920" height="1200" poster="assets/wild-viewer-film.jpg" aria-label="The complete native wild-env viewer playing an episode, changing vehicle selection and inspecting suppression layers"><source src="assets/wild-viewer-film.mp4" type="video/mp4"></video></button></figure>
-  <div class="media-footer"><details><summary>Viewer &amp; simulation notes</summary><p class="notes">The application’s own Qt interface, playing a recorded synthetic foothill scenario at four simulated minutes per second. The demonstration changes vehicle selection and suppression layers using the viewer’s original controls. Greedy assignment baseline, seed 20260726; this is not a trained policy or a real-fire forecast.</p></details><button class="motion" data-motion-for="wild-capture">Pause</button></div>
+  <header class="project-heading"><h2 id="wild-title"><a href="https://github.com/amilcodes/wild-env">wild-env</a></h2><div class="project-summary"><p>Evaluating how agents coordinate crews, water, and time to defend communities from wildfire.</p><nav class="project-links" aria-label="wild-env links"><a href="https://github.com/amilcodes/wild-env">GitHub ↗</a><a href="assets/wild-env-eval-v2.txt">Results ↗</a></nav></div></header>
+  <div class="wild-layout">
+   <figure class="wild-film" id="wild-capture"><button class="capture-open" data-capture="wild-viewer-film" aria-label="Open the wild-env viewer recording"><video autoplay muted loop playsinline preload="metadata" width="1920" height="1200" poster="assets/wild-viewer-film.jpg" aria-label="Wildfire simulator replay with aircraft dispatch and suppression layers"><source src="assets/wild-viewer-film.mp4" type="video/mp4"></video></button><figcaption>Fire spread &amp; resource dispatch</figcaption></figure>
+   <figure class="wild-ranking" id="wild-results-title"><figcaption><span>Incident planning</span><span>% of optimum</span></figcaption><ol>
+<li><span>GPT-6.2 Astra</span><span class="wild-bar" aria-hidden="true"><i style="width:95.864%"></i></span><span>95.9</span></li>
+<li><span>Fable 5.2</span><span class="wild-bar" aria-hidden="true"><i style="width:95.8541%"></i></span><span>95.9</span></li>
+<li><span>GPT-6 Astra</span><span class="wild-bar" aria-hidden="true"><i style="width:92.1903%"></i></span><span>92.2</span></li>
+<li><span>GPT-6.1 Sol</span><span class="wild-bar" aria-hidden="true"><i style="width:90.6899%"></i></span><span>90.7</span></li>
+<li><span>Opus 5.5</span><span class="wild-bar" aria-hidden="true"><i style="width:90.439%"></i></span><span>90.4</span></li>
+<li><span>Sonnet 5.5</span><span class="wild-bar" aria-hidden="true"><i style="width:85.3866%"></i></span><span>85.4</span></li>
+<li><span>Haiku 5.5</span><span class="wild-bar" aria-hidden="true"><i style="width:69.0668%"></i></span><span>69.1</span></li>
+<li><span>GPT-6.1 Terra</span><span class="wild-bar" aria-hidden="true"><i style="width:65.0925%"></i></span><span>65.1</span></li>
+<li><span>GPT-6 Luna</span><span class="wild-bar" aria-hidden="true"><i style="width:27.5784%"></i></span><span>27.6</span></li>
+<li class="baseline"><span>Search</span><span class="wild-bar" aria-hidden="true"><i style="width:46.7%"></i></span><span>46.7</span></li>
+<li class="baseline"><span>Greedy</span><span class="wild-bar" aria-hidden="true"><i style="width:4.2%"></i></span><span>4.2</span></li>
+   </ol><p>32 incidents · 9 models · exact reference</p></figure>
+  </div>
+  <div class="media-footer"><details><summary>Evaluation notes</summary><div class="notes"><p>The planning benchmark scores synthetic community-defense tasks with deadlines, shared water, and uncertain forecasts. Each model gets one call per incident. Scores average expected value across both forecast worlds, normalized by a proven optimum with the same information. Tiers 9 and 10 each contribute 16 incidents.</p><p>GPT-6.2 Astra and Fable 5.2 both round to 95.9. Their paired difference has a 95% confidence interval of −1.0 to 1.0 points. Search uses 256 randomized plans. The replay shows the project's fire simulator running a greedy dispatch policy.</p><p><a href="assets/wild-env-eval-v2.txt">Full results &amp; confidence intervals</a> · <a href="assets/wild-env-eval-v2.csv">Score and cost data</a></p></div></details><button class="motion" data-motion-for="wild-capture">Pause</button></div>
  </div></section>
  <section class="project mc-evals" id="mc-evals" aria-labelledby="mc-title"><div class="width">
-  <header class="project-heading">
-   <h2 id="mc-title"><a href="https://github.com/amilcodes/mc-evals">mc-evals</a></h2>
-   <div class="project-summary">
-    <p>How small a working piston door can a language model build in Minecraft? Agents place blocks in 3D and time their movements so the doorway opens flush with the wall. The game engine cycles each design open and closed and measures every block of space the mechanism uses.</p>
-    <nav class="project-links" aria-label="mc-evals links">
-     <a href="https://github.com/amilcodes/mc-evals">GitHub ↗</a>
-     <a href="https://github.com/amilcodes/mc-evals#results">Run results ↗</a>
-    </nav>
-   </div>
-  </header>
-  <figure class="mc-example">
-   <video controls muted playsinline preload="none" width="720" height="406" poster="assets/mc-evals-door.jpg" aria-label="Replay of a compact three-by-three Minecraft piston door closing and opening">
-    <source src="assets/mc-evals-door.mp4" type="video/mp4">
-   </video>
-   <figcaption>
-    <h3>Spatial reasoning under changing rules</h3>
-    <p>The grader shifts and rotates the build to check that it still works. A separate task changes redstone timing, so agents have to account for when each piston fires.</p>
-    <p>Across four models, 54 of 64 runs produced a working door. The replay shows a speed-tuned version of Fable’s 3×3 design. The entire mechanism fits in 70 blocks of space.</p>
-   </figcaption>
-  </figure>
+  <header class="project-heading"><h2 id="mc-title"><a href="https://github.com/amilcodes/mc-evals">mc-evals</a></h2><div class="project-summary"><p>Spatial reasoning through Minecraft piston doors. Agents build compact mechanisms; the game engine tests every design.</p><nav class="project-links" aria-label="mc-evals links"><a href="https://github.com/amilcodes/mc-evals">GitHub ↗</a><a href="https://github.com/amilcodes/mc-evals#results">Results ↗</a></nav></div></header>
+  <div class="mc-films" id="mc-captures">
+   <figure><button class="capture-open" data-capture="mc-evals-door" aria-label="Open the three-by-three piston door replay"><video autoplay muted loop playsinline preload="metadata" width="720" height="406" poster="assets/mc-evals-door.jpg"><source src="assets/mc-evals-door.mp4" type="video/mp4"></video></button><figcaption><span>Fable · 3×3 door</span><span>70-block volume</span></figcaption></figure>
+   <figure><button class="capture-open" data-capture="mc-evals-opus" aria-label="Open the four-by-four piston door replay"><video autoplay muted loop playsinline preload="metadata" width="720" height="406" poster="assets/mc-evals-opus.jpg"><source src="assets/mc-evals-opus.mp4" type="video/mp4"></video></button><figcaption><span>Opus · 4×4 door</span><span>240-block volume</span></figcaption></figure>
+  </div>
+  <div class="media-footer"><details><summary>54 valid designs / 64 runs</summary><div class="notes"><p>Four models across seven task setups. The grader cycles each door, shifts and rotates the build, and measures the space occupied by the full mechanism. Changed-timing tasks test adaptation to new redstone physics. Replays show the compact Fable and Opus designs after local speed optimization.</p></div></details><button class="motion" data-motion-for="mc-captures">Pause</button></div>
  </div></section>
  <section class="project robot" id="sysvrc" aria-labelledby="robot-title"><div class="width">
   <header class="project-heading"><h2 id="robot-title"><a href="https://github.com/amilcodes/SysVRC">SysVRC</a></h2><div class="project-summary"><p>Autonomous VRC routines in ROS 2 and Gazebo. The field, controller estimate, and command trace on one timeline.</p><nav class="project-links" aria-label="SysVRC links"><a href="https://github.com/amilcodes/SysVRC">GitHub ↗</a></nav></div></header>

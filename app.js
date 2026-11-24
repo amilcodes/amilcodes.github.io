@@ -74,6 +74,8 @@ document.querySelectorAll('[data-run]').forEach(button=>button.onclick=()=>{
   dialog.showModal();syncMedia();play(dialogVideo);
 });
 const captureNotes={
+ 'mc-evals-door':'Fable 5.2’s 3×3 seamless door, volume 70. Tick-by-tick replay after local speed optimization.',
+ 'mc-evals-opus':'Opus 5.5’s 4×4 seamless door, volume 240. Tick-by-tick replay after local speed optimization.',
  'sysvrc-autonomous-skills-5x':'Team 6121C’s autonomous skills run in VRC Spin Up. Original physical-robot footage at 5× speed.',
  'sysvrc-driver-skills-5x':'Team 6121C’s driver-controlled skills run in VRC Spin Up. Original physical-robot footage at 5× speed.',
  'sysvrc-dashboard-full':'Full available 60-second Gazebo skills recording at 5×. The solid robot is the simulated pose; the white outline is the controller’s odometry estimate. Its drift beyond the field is present in the recorded data. The view includes the entire estimate, with a short hold at the recording’s end.',
