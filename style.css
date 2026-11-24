@@ -213,3 +213,22 @@
 
 /* Desktop matches the former 90% view. Keep mobile sizing and browser zoom usable. */
 @media(min-width:851px){html{font-size:90%}}
+
+.mc-evals {
+  --paper: #2d262b;
+  --ink: #f3e8da;
+  --accent: #edba86;
+  --line: #937a72;
+}
+.mc-example {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 2rem;
+}
+.mc-example video { width: 100%; background: #101417; }
+.mc-example h3 { font-size: 1.25rem; color: var(--accent); }
+.mc-example p { margin-top: .85rem; font-size: 1.03125rem; line-height: 1.65; }
+@media (max-width: 850px) {
+  .mc-example { grid-template-columns: 1fr; gap: 1.25rem; }
+}

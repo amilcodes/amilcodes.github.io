@@ -9,7 +9,7 @@
   <link rel="icon" href="assets/aa-icon-96.png" type="image/png" sizes="96x96">
   <link rel="icon" href="assets/mark.svg?v=aa" type="image/svg+xml" sizes="any">
   <link rel="apple-touch-icon" href="assets/aa-icon-180.png">
-  <link rel="stylesheet" href="style.css?v=rapid-h100"><script type="module" src="app.js?v=rapid-overall-v3"></script>
+  <link rel="stylesheet" href="style.css?v=mc-evals"><script type="module" src="app.js?v=rapid-overall-v3"></script>
 <script type="module" src="analytics.js?v=1"></script>
 </head>
 <body>
@@ -63,6 +63,47 @@
   <header class="project-heading"><h2 id="rsg-title"><a href="https://amilagrawal.com/rsgbot/">RSGbot</a></h2><div class="project-summary"><p>A Minecraft speedrunning agent.<br>Screenshots in, keyboard and mouse actions out.</p><nav class="project-links" aria-label="RSGbot links"><a href="https://amilagrawal.com/rsgbot/">Project site ↗</a><a href="https://github.com/amilcodes/RSGbot">GitHub ↗</a></nav></div></header>
   <div class="quad" id="rsg-quad"></div>
   <div class="media-footer"><details><summary>Run notes</summary><div class="notes"><p>Excerpts from longer agent runs, with thinking intervals removed or accelerated. The strips replay timestamped agent commands: highlights show explicit requested controls, while higher-level skills remain named actions. These archives do not contain measured key-down or mouse-event traces. Select a clip for its source and outcome.</p></div></details><button class="motion" data-motion-for="rsg-quad">Pause</button></div>
+ </div></section>
+ <section class="project wild" id="wild-env" aria-labelledby="wild-title"><div class="width">
+  <header class="project-heading"><h2 id="wild-title"><a href="https://github.com/amilcodes/wild-env">wild-env</a></h2><div class="project-summary"><p>An evaluation for multi-agent wildfire response. Dispatch policies face the same simulated fires with delayed fire reports, limited fuel, and queues at refill sites. Paired runs measure how much land burns and the expected loss of assets in the fire’s path when aircraft hold position or follow a dispatch policy.</p><nav class="project-links" aria-label="wild-env links"><a href="https://github.com/amilcodes/wild-env">GitHub ↗</a><a href="https://github.com/amilcodes/wild-env/blob/main/docs/tensor_incident_environment.md">Evaluation setup ↗</a></nav></div></header>
+  <figure class="capture-wide" id="wild-capture"><button class="capture-open" data-capture="wild-viewer-film" aria-label="Open the wild-env viewer recording"><video autoplay muted loop playsinline preload="metadata" width="1920" height="1200" poster="assets/wild-viewer-film.jpg" aria-label="The complete native wild-env viewer playing an episode, changing vehicle selection and inspecting suppression layers"><source src="assets/wild-viewer-film.mp4" type="video/mp4"></video></button></figure>
+  <div class="media-footer"><details><summary>Viewer &amp; simulation notes</summary><p class="notes">The application’s own Qt interface, playing a recorded synthetic foothill scenario at four simulated minutes per second. The demonstration changes vehicle selection and suppression layers using the viewer’s original controls. Greedy assignment baseline, seed 20260726; this is not a trained policy or a real-fire forecast.</p></details><button class="motion" data-motion-for="wild-capture">Pause</button></div>
+ </div></section>
+ <section class="project mc-evals" id="mc-evals" aria-labelledby="mc-title"><div class="width">
+  <header class="project-heading">
+   <h2 id="mc-title"><a href="https://github.com/amilcodes/mc-evals">mc-evals</a></h2>
+   <div class="project-summary">
+    <p>How small a working piston door can a language model build in Minecraft? Agents place blocks in 3D and time their movements so the doorway opens flush with the wall. The game engine cycles each design open and closed and measures every block of space the mechanism uses.</p>
+    <nav class="project-links" aria-label="mc-evals links">
+     <a href="https://github.com/amilcodes/mc-evals">GitHub ↗</a>
+     <a href="https://github.com/amilcodes/mc-evals#results">Run results ↗</a>
+    </nav>
+   </div>
+  </header>
+  <figure class="mc-example">
+   <video controls muted playsinline preload="none" width="720" height="406" poster="assets/mc-evals-door.jpg" aria-label="Replay of a compact three-by-three Minecraft piston door closing and opening">
+    <source src="assets/mc-evals-door.mp4" type="video/mp4">
+   </video>
+   <figcaption>
+    <h3>Spatial reasoning under changing rules</h3>
+    <p>The grader shifts and rotates the build to check that it still works. A separate task changes redstone timing, so agents have to account for when each piston fires.</p>
+    <p>Across four models, 54 of 64 runs produced a working door. The replay shows a speed-tuned version of Fable’s 3×3 design. The entire mechanism fits in 70 blocks of space.</p>
+   </figcaption>
+  </figure>
+ </div></section>
+ <section class="project robot" id="sysvrc" aria-labelledby="robot-title"><div class="width">
+  <header class="project-heading"><h2 id="robot-title"><a href="https://github.com/amilcodes/SysVRC">SysVRC</a></h2><div class="project-summary"><p>Autonomous VRC routines in ROS 2 and Gazebo. The field, controller estimate, and command trace on one timeline.</p><nav class="project-links" aria-label="SysVRC links"><a href="https://github.com/amilcodes/SysVRC">GitHub ↗</a></nav></div></header>
+  <figure class="capture-wide" id="sys-capture"><button class="capture-open" data-capture="sysvrc-dashboard-full" aria-label="Open the SysVRC dashboard recording"><video autoplay muted loop playsinline preload="metadata" width="1440" height="900" poster="assets/sysvrc-dashboard-full.jpg" aria-label="Original SysVRC dashboard replaying Gazebo skills telemetry"><source src="assets/sysvrc-dashboard-full.mp4" type="video/mp4"></video></button></figure>
+  <div class="media-footer"><a href="https://github.com/amilcodes/SysVRC/blob/main/docs/replay/skills_gazebo.jsonl">Gazebo skills recording</a><button class="motion" data-motion-for="sys-capture">Pause</button></div>
+  <div class="robot-field">
+   <div class="field-heading"><h3>On the field</h3><p>6121C · Spin Up</p></div>
+   <div class="field-pair" id="robot-field-captures">
+    <figure><button class="capture-open" data-capture="sysvrc-autonomous-skills-5x" aria-label="Open the autonomous skills run"><video autoplay muted loop playsinline preload="metadata" width="1280" height="720" poster="assets/sysvrc-autonomous-skills-5x.jpg"><source src="assets/sysvrc-autonomous-skills-5x.mp4" type="video/mp4"></video></button><figcaption>Autonomous skills</figcaption></figure>
+    <figure><button class="capture-open" data-capture="sysvrc-driver-skills-5x" aria-label="Open the driver skills run"><video autoplay muted loop playsinline preload="metadata" width="1280" height="720" poster="assets/sysvrc-driver-skills-5x.jpg"><source src="assets/sysvrc-driver-skills-5x.mp4" type="video/mp4"></video></button><figcaption>Driver skills</figcaption></figure>
+   </div>
+   <div class="media-footer"><p>Different Field Setup Used</p><button class="motion" data-motion-for="robot-field-captures">Pause</button></div>
+  </div>
+
  </div></section>
  <section class="project rapid" id="rapidtinyrec" aria-labelledby="rapid-title"><div class="width">
   <header class="project-heading">
@@ -128,20 +169,6 @@
    </div>
   </details>
  </div></section>
- <section class="project robot" id="sysvrc" aria-labelledby="robot-title"><div class="width">
-  <header class="project-heading"><h2 id="robot-title"><a href="https://github.com/amilcodes/SysVRC">SysVRC</a></h2><div class="project-summary"><p>Autonomous VRC routines in ROS 2 and Gazebo. The field, controller estimate, and command trace on one timeline.</p><nav class="project-links" aria-label="SysVRC links"><a href="https://github.com/amilcodes/SysVRC">GitHub ↗</a></nav></div></header>
-  <figure class="capture-wide" id="sys-capture"><button class="capture-open" data-capture="sysvrc-dashboard-full" aria-label="Open the SysVRC dashboard recording"><video autoplay muted loop playsinline preload="metadata" width="1440" height="900" poster="assets/sysvrc-dashboard-full.jpg" aria-label="Original SysVRC dashboard replaying Gazebo skills telemetry"><source src="assets/sysvrc-dashboard-full.mp4" type="video/mp4"></video></button></figure>
-  <div class="media-footer"><a href="https://github.com/amilcodes/SysVRC/blob/main/docs/replay/skills_gazebo.jsonl">Gazebo skills recording</a><button class="motion" data-motion-for="sys-capture">Pause</button></div>
-  <div class="robot-field">
-   <div class="field-heading"><h3>On the field</h3><p>6121C · Spin Up</p></div>
-   <div class="field-pair" id="robot-field-captures">
-    <figure><button class="capture-open" data-capture="sysvrc-autonomous-skills-5x" aria-label="Open the autonomous skills run"><video autoplay muted loop playsinline preload="metadata" width="1280" height="720" poster="assets/sysvrc-autonomous-skills-5x.jpg"><source src="assets/sysvrc-autonomous-skills-5x.mp4" type="video/mp4"></video></button><figcaption>Autonomous skills</figcaption></figure>
-    <figure><button class="capture-open" data-capture="sysvrc-driver-skills-5x" aria-label="Open the driver skills run"><video autoplay muted loop playsinline preload="metadata" width="1280" height="720" poster="assets/sysvrc-driver-skills-5x.jpg"><source src="assets/sysvrc-driver-skills-5x.mp4" type="video/mp4"></video></button><figcaption>Driver skills</figcaption></figure>
-   </div>
-   <div class="media-footer"><p>Different Field Setup Used</p><button class="motion" data-motion-for="robot-field-captures">Pause</button></div>
-  </div>
-
- </div></section>
  <section class="project paver" id="paver" aria-labelledby="paver-title"><div class="width">
   <header class="project-heading"><div><h2 id="paver-title"><a href="https://github.com/amilcodes/paver">PAVER</a></h2><p class="paver-acronym">Panoramic Alignment and View-based Evidence Recovery</p></div><div class="project-summary"><p>Recovering occluded street-view pixels from neighboring panoramas, using feature matching and geometry.</p><nav class="project-links" aria-label="Paver links"><a href="https://github.com/amilcodes/paver">GitHub ↗</a></nav></div></header>
   <div class="paver-layout">
@@ -171,11 +198,6 @@
    <div class="mercury-map"><img id="mercury-map" src="assets/mercury-degree-25.webp" width="1004" height="502" alt="Mercury’s gravity field at spherical harmonic degree 25" loading="lazy"></div>
    <figcaption class="mercury-footer"><div><div class="mercury-stages" role="group" aria-label="Choose a reconstruction stage"><button data-mercury-degree="25" aria-pressed="true">25</button><span aria-hidden="true">→</span><button data-mercury-degree="50" aria-pressed="false">50</button><span aria-hidden="true">→</span><button data-mercury-degree="100" aria-pressed="false">100</button></div><p>Southern detail is a model prediction.</p></div><button id="mercury-motion" class="motion" aria-pressed="false">Pause</button></figcaption>
   </figure>
- </div></section>
- <section class="project wild" id="wild-env" aria-labelledby="wild-title"><div class="width">
-  <header class="project-heading"><h2 id="wild-title"><a href="https://github.com/amilcodes/wild-env">wild-env</a></h2><div class="project-summary"><p>A wildfire-response environment for multi-agent learning: fire spread, aircraft dispatch, suppression, and logistics.</p><nav class="project-links" aria-label="wild-env links"><a href="https://github.com/amilcodes/wild-env">GitHub ↗</a><a href="https://github.com/amilcodes/wild-env/blob/main/README.md">Viewer &amp; setup ↗</a></nav></div></header>
-  <figure class="capture-wide" id="wild-capture"><button class="capture-open" data-capture="wild-viewer-film" aria-label="Open the wild-env viewer recording"><video autoplay muted loop playsinline preload="metadata" width="1920" height="1200" poster="assets/wild-viewer-film.jpg" aria-label="The complete native wild-env viewer playing an episode, changing vehicle selection and inspecting suppression layers"><source src="assets/wild-viewer-film.mp4" type="video/mp4"></video></button></figure>
-  <div class="media-footer"><details><summary>Viewer &amp; simulation notes</summary><p class="notes">The application’s own Qt interface, playing a recorded synthetic foothill scenario at four simulated minutes per second. The demonstration changes vehicle selection and suppression layers using the viewer’s original controls. Greedy assignment baseline, seed 20260726; this is not a trained policy or a real-fire forecast.</p></details><button class="motion" data-motion-for="wild-capture">Pause</button></div>
  </div></section>
  <section class="project stemp" id="stemp" aria-labelledby="stemp-title"><div class="width">
   <header class="stem-heading"><h2 id="stemp-title"><a href="https://github.com/amilcodes/stemp">stemp</a></h2><div class="project-summary"><p>Four stems, twelve pads, a step sequencer.<br>A music instrument for macOS.</p><nav class="project-links" aria-label="stemp links"><a href="https://github.com/amilcodes/stemp">GitHub &amp; app ↗</a></nav></div></header>
