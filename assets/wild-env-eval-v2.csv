@@ -1,0 +1,10 @@
+model,label,developer,price_assumed,instances,mean_score,ci_low,ci_high,mean_input_tokens,mean_output_tokens,cost_per_instance_usd,cost_ci_low,cost_ci_high,mean_latency_s,pareto
+gpt-6-luna,GPT-6 Luna,OpenAI,False,32,27.5784,24.2783,30.9692,30118.625,6534.0625,0.0063,0.0058,0.0068,124.3644,True
+gpt-6.1-terra,GPT-6.1 Terra,OpenAI,False,32,65.0925,60.9069,68.9864,31256.6562,3825.3125,0.0504,0.0491,0.0517,78.2841,True
+haiku-5.5,Claude Haiku 5.5,Anthropic,False,32,69.0668,63.553,72.7718,71317.6562,102313.6562,0.0583,0.0533,0.0635,418.63,True
+gpt-6.1-sol,GPT-6.1 Sol,OpenAI,False,32,90.6899,88.6148,92.5535,35343.3438,35314.125,0.4238,0.381,0.4679,1116.6025,True
+sonnet-5.5,Claude Sonnet 5.5,Anthropic,False,32,85.3866,82.8296,87.9106,21272.75,54250.25,0.585,0.5376,0.6309,383.8975,False
+opus-5.5,Claude Opus 5.5,Anthropic,False,32,90.439,89.143,91.6825,21267.7812,53564.0,1.1564,1.085,1.2253,483.9063,False
+gpt-6-astra,GPT-6 Astra,OpenAI,False,32,92.1903,90.7708,93.4763,34547.9375,23634.1562,1.5272,1.3845,1.6696,905.8703,True
+gpt-6.2-astra,GPT-6.2 Astra,OpenAI,True,32,95.864,94.9884,96.6567,34550.8125,24937.5625,1.5924,1.4284,1.7656,911.6025,True
+fable-5.2,Claude Fable 5.2,Anthropic,False,32,95.8541,94.8714,96.8305,37129.0625,161880.0,6.7722,6.0732,7.4604,1667.6862,False

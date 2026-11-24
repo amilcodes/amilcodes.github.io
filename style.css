@@ -232,3 +232,33 @@
 @media (max-width: 850px) {
   .mc-example { grid-template-columns: 1fr; gap: 1.25rem; }
 }
+
+.wild-results {
+  padding-block: 1.6rem 2.5rem;
+  border-top: 1px solid var(--line);
+}
+.wild-results h3, .wild-replay-title { font-size: clamp(1.25rem, 2.3vw, 1.65rem); }
+.wild-method { max-width: 79ch; margin: .8rem 0 1.5rem; font-size: 1.06rem; line-height: 1.65; }
+.wild-results-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(20rem, 1fr);
+  align-items: start;
+  gap: clamp(1.25rem, 3vw, 2.75rem);
+}
+.wild-plot a { display: block; }
+.wild-plot img { width: 100%; height: auto; }
+.wild-plot figcaption { margin-top: .8rem; font-size: 1rem; line-height: 1.65; }
+.wild-scores { min-width: 0; }
+.wild-scores table { width: 100%; border-collapse: collapse; font-size: 1rem; font-variant-numeric: tabular-nums; }
+.wild-scores caption { text-align: left; font-size: 1.2rem; margin-bottom: .55rem; }
+.wild-scores th { text-align: left; font-weight: normal; }
+.wild-scores th, .wild-scores td { padding: .33rem .2rem; }
+.wild-scores th:first-child { padding-left: 0; }
+.wild-scores th:not(:first-child), .wild-scores td { text-align: right; white-space: nowrap; }
+.wild-scores thead { color: var(--accent); border-block: 1px solid var(--line); }
+.wild-scores tbody + tbody { border-top: 1px solid var(--line); color: var(--accent); }
+.wild-scores > a { display: inline-block; margin-top: .65rem; font-size: 1rem; }
+.wild-replay-title { border-top: 1px solid var(--line); padding-top: 1.5rem; margin-bottom: 1rem; }
+@media (max-width: 860px) {
+  .wild-results-grid { grid-template-columns: minmax(0, 1fr); }
+}

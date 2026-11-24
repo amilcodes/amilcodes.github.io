@@ -1,0 +1,69 @@
+WILDFIRE OPS LADDER (wildfire-ops-v3) - 32 instances, tiers 9:16, 10:16
+Score = 100 x expected net value / proven information-matched optimum (equal weight per instance).
+incident = community-defence tiers 9-10.
+
+policy                     mean  95% CI            solved   incident       T9    T10
+reference:clairvoyant     106.3  [105.4, 107.3]     32/32     106.3    106.9  105.8
+gpt-6.2-astra              95.9  [ 95.0,  96.7]      0/32      95.9     97.2   94.6
+fable-5.2                  95.9  [ 94.9,  96.8]      0/32      95.9     97.4   94.3
+gpt-6-astra                92.2  [ 90.8,  93.5]      0/32      92.2     95.1   89.3
+gpt-6.1-sol                90.7  [ 88.6,  92.6]      0/32      90.7     93.8   87.5
+opus-5.5                   90.4  [ 89.1,  91.7]      0/32      90.4     91.4   89.5
+sonnet-5.5                 85.4  [ 82.8,  87.9]      0/32      85.4     86.9   83.8
+reference:open_loop        78.4  [ 76.7,  80.1]      0/32      78.4     80.5   76.3
+haiku-5.5                  69.1  [ 63.6,  72.8]      0/32      69.1     71.1   67.0
+gpt-6.1-terra              65.1  [ 60.9,  69.0]      0/32      65.1     71.7   58.5
+baseline:search            46.7  [ 44.2,  49.2]      0/32      46.7     55.6   37.7
+gpt-6-luna                 27.6  [ 24.3,  31.0]      0/32      27.6     34.0   21.1
+baseline:greedy             4.2  [  3.8,   4.5]      0/32       4.2      4.6    3.7
+baseline:deadline           4.2  [  3.8,   4.5]      0/32       4.2      4.6    3.7
+baseline:hold               0.0  [  0.0,   0.0]      0/32       0.0      0.0    0.0
+
+model                    calls failed unparsed skips/call  latency  out tok  mean if no failures
+gpt-6.2-astra               32      0        0       0.03     912s    24938                 95.9
+fable-5.2                   32      0        0       0.00    1668s   161880                 95.9
+gpt-6-astra                 32      0        0       0.25     906s    23634                 92.2
+gpt-6.1-sol                 32      0        0       0.62    1117s    35314                 90.7
+opus-5.5                    32      0        0       0.09     484s    53564                 90.4
+sonnet-5.5                  32      0        0       0.06     384s    54250                 85.4
+haiku-5.5                   32      0        0       0.31     419s   102314                 69.1
+gpt-6.1-terra               32      0        0       2.53      78s     3825                 65.1
+gpt-6-luna                  32      0        0       1.81     124s     6534                 27.6
+
+PAIRED MODEL COMPARISONS (sign-flip test, Holm over 36 pairs; separated = Holm p<0.05 and bootstrap CI excludes 0): 31 separated
+  * gpt-6.2-astra > gpt-6-luna:  68.3 pts CI [ 64.9,  71.6]  Holm p=0.0018  better/worse on 32/0 of 32
+  * fable-5.2 > gpt-6-luna:  68.3 pts CI [ 64.9,  71.5]  Holm p=0.0018  better/worse on 32/0 of 32
+  * gpt-6-astra > gpt-6-luna:  64.6 pts CI [ 61.1,  68.1]  Holm p=0.0018  better/worse on 32/0 of 32
+  * gpt-6.1-sol > gpt-6-luna:  63.1 pts CI [ 59.3,  66.9]  Holm p=0.0018  better/worse on 32/0 of 32
+  * opus-5.5 > gpt-6-luna:  62.9 pts CI [ 59.4,  66.2]  Holm p=0.0018  better/worse on 32/0 of 32
+  * sonnet-5.5 > gpt-6-luna:  57.8 pts CI [ 53.1,  62.4]  Holm p=0.0018  better/worse on 32/0 of 32
+  * haiku-5.5 > gpt-6-luna:  41.5 pts CI [ 34.9,  47.0]  Holm p=0.0018  better/worse on 31/1 of 32
+  * gpt-6.1-terra > gpt-6-luna:  37.5 pts CI [ 32.1,  42.7]  Holm p=0.0018  better/worse on 31/1 of 32
+  * gpt-6.2-astra > gpt-6.1-terra:  30.8 pts CI [ 26.8,  35.1]  Holm p=0.0018  better/worse on 32/0 of 32
+  * fable-5.2 > gpt-6.1-terra:  30.8 pts CI [ 27.1,  34.8]  Holm p=0.0018  better/worse on 32/0 of 32
+  * gpt-6-astra > gpt-6.1-terra:  27.1 pts CI [ 23.5,  31.0]  Holm p=0.0018  better/worse on 32/0 of 32
+  * gpt-6.2-astra > haiku-5.5:  26.8 pts CI [ 22.9,  32.6]  Holm p=0.0018  better/worse on 32/0 of 32
+  * fable-5.2 > haiku-5.5:  26.8 pts CI [ 22.9,  32.6]  Holm p=0.0018  better/worse on 32/0 of 32
+  * gpt-6.1-sol > gpt-6.1-terra:  25.6 pts CI [ 21.5,  29.9]  Holm p=0.0018  better/worse on 32/0 of 32
+  * opus-5.5 > gpt-6.1-terra:  25.3 pts CI [ 21.2,  29.9]  Holm p=0.0018  better/worse on 32/0 of 32
+  * gpt-6-astra > haiku-5.5:  23.1 pts CI [ 19.1,  29.0]  Holm p=0.0018  better/worse on 32/0 of 32
+  * gpt-6.1-sol > haiku-5.5:  21.6 pts CI [ 16.9,  28.0]  Holm p=0.0018  better/worse on 32/0 of 32
+  * opus-5.5 > haiku-5.5:  21.4 pts CI [ 17.2,  27.4]  Holm p=0.0018  better/worse on 31/1 of 32
+  * sonnet-5.5 > gpt-6.1-terra:  20.3 pts CI [ 15.6,  25.0]  Holm p=0.0018  better/worse on 31/1 of 32
+  * sonnet-5.5 > haiku-5.5:  16.3 pts CI [ 12.0,  22.6]  Holm p=0.0018  better/worse on 32/0 of 32
+  * gpt-6.2-astra > sonnet-5.5:  10.5 pts CI [  8.1,  12.8]  Holm p=0.0018  better/worse on 32/0 of 32
+  * fable-5.2 > sonnet-5.5:  10.5 pts CI [  8.2,  12.7]  Holm p=0.0018  better/worse on 30/2 of 32
+  * gpt-6-astra > sonnet-5.5:   6.8 pts CI [  4.1,   9.5]  Holm p=0.0018  better/worse on 25/7 of 32
+  * gpt-6.2-astra > opus-5.5:   5.4 pts CI [  4.1,   6.7]  Holm p=0.0018  better/worse on 29/3 of 32
+  * fable-5.2 > opus-5.5:   5.4 pts CI [  4.1,   6.7]  Holm p=0.0018  better/worse on 31/1 of 32
+  * gpt-6.1-sol > sonnet-5.5:   5.3 pts CI [  2.9,   7.7]  Holm p=0.0031  better/worse on 24/8 of 32
+  * gpt-6.2-astra > gpt-6.1-sol:   5.2 pts CI [  3.2,   7.1]  Holm p=0.0018  better/worse on 26/5 of 32
+  * fable-5.2 > gpt-6.1-sol:   5.2 pts CI [  3.4,   6.9]  Holm p=0.0018  better/worse on 25/7 of 32
+  * opus-5.5 > sonnet-5.5:   5.1 pts CI [  2.5,   7.6]  Holm p=0.0045  better/worse on 23/9 of 32
+    haiku-5.5 > gpt-6.1-terra:   4.0 pts CI [ -2.8,   9.8]  Holm p=0.7941  better/worse on 22/10 of 32
+  * gpt-6.2-astra > gpt-6-astra:   3.7 pts CI [  2.4,   5.0]  Holm p=0.0018  better/worse on 26/5 of 32
+  * fable-5.2 > gpt-6-astra:   3.7 pts CI [  2.3,   5.1]  Holm p=0.0018  better/worse on 25/7 of 32
+    gpt-6-astra > opus-5.5:   1.8 pts CI [ -0.1,   3.5]  Holm p=0.4347  better/worse on 22/10 of 32
+    gpt-6-astra > gpt-6.1-sol:   1.5 pts CI [ -0.6,   3.7]  Holm p=0.7410  better/worse on 17/15 of 32
+    gpt-6.1-sol > opus-5.5:   0.3 pts CI [ -1.6,   2.0]  Holm p=1.0000  better/worse on 20/12 of 32
+    gpt-6.2-astra > fable-5.2:   0.0 pts CI [ -1.0,   1.0]  Holm p=1.0000  better/worse on 16/15 of 32
