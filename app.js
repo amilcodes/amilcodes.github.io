@@ -114,3 +114,6 @@ setupProjectVisuals({ reducedMotion });
 
 import { setupRecordedInputs } from './rsg-inputs.js?v=overworld6';
 setupRecordedInputs({ quad, dialogVideo });
+
+import { setupWildChart } from './wild-chart.js';
+setupWildChart();
